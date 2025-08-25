@@ -13,7 +13,7 @@ import { NimbblSDK, EVENTS } from 'nimbbl-react-native-sdk';
 
 const nimbblSDK = NimbblSDK.getSharedInstance();
 
-// Initialize with your config
+// Initialize with your config (no credentials required)
 await nimbblSDK.initialize({
   environment: 'production', // or 'sandbox'
   options: {
@@ -44,7 +44,7 @@ nimbblSDK.addEventListener(EVENTS.PAYMENT_FAILED, (data) => {
 // Create order
 const orderResult = await nimbblSDK.createShopOrder(
   'INR',           // currency
-  '100',           // amount
+  '100',           // amount (as string)
   '11',            // productId (for header customization)
   true,            // orderLineItems
   'redirect',      // checkoutExperience
