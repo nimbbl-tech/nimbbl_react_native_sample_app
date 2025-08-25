@@ -20,4 +20,11 @@ export const Colors = {
   switchTrackColor: '#000000', // Black track when checked
   switchTrackColorUnchecked: '#606060', // Light grey track when unchecked
   checkboxColor: '#000',
+  // UI Colors for screens
+  primary: '#000000',
+  background: '#FFFFFF',
+  text: '#000000',
+  textSecondary: '#606060',
+  border: '#E0E0E0',
+  error: '#FF3B30',
 } as const;

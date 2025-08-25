@@ -1,4 +1,4 @@
-export type Screen = 'main' | 'settings' | 'success';
+export type Screen = 'main' | 'settings' | 'result';
 
 export interface OrderData {
   amount: string;

@@ -1,11 +1,10 @@
-import { multiply } from 'react-native-my-sdk';
+// Simple Order Service for testing
+// This service is not used in the main payment flow
 
 export class OrderService {
   static async createOrder(amount: string): Promise<{ orderId: string; status: string }> {
     try {
-      // Simulate order creation with your SDK
-      const result = await multiply(parseFloat(amount), 1);
-      
+      // Simulate order creation
       return {
         orderId: `ORDER_${Date.now()}`,
         status: 'Order Created Successfully',

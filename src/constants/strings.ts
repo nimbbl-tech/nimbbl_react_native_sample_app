@@ -108,7 +108,7 @@ export const Arrays = {
   subPaymentTypeWallet: ['all wallets', 'freecharge', 'jio money', 'phonepe'],
   subPaymentTypeUpi: ['collect + intent', 'collect', 'intent'],
   
-  // Environments
+  // Environments (matching iOS app exactly)
   appEnvironments: ['Prod', 'Pre-Prod', 'QA'],
   
   // Test Merchants

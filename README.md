@@ -1,4 +1,26 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Nimbbl React Native SDK Sample App
+
+This is a sample React Native app demonstrating how to integrate the **Nimbbl React Native SDK** for payment processing.
+
+## 🚀 Quick Integration Guide
+
+For merchants who want to integrate the Nimbbl SDK quickly, see our **[Simple Integration Guide](SIMPLE_INTEGRATION_EXAMPLE.md)**.
+
+### Key Features:
+- ✅ Simple payment flow
+- ✅ Success/Failure event handling
+- ✅ Multiple payment methods support
+- ✅ Customizable UI options
+- ✅ Production-ready integration
+
+## 📱 Sample App Features
+
+This sample app demonstrates:
+- Complete payment integration
+- UI customization options
+- Event handling for success/failure
+- Settings configuration
+- Error handling
 
 # Getting Started
 

@@ -10,13 +10,25 @@ import { View, StyleSheet } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { MainScreen } from './src/screens/MainScreen';
 import { SettingsScreen } from './src/screens/SettingsScreen';
-import { SuccessScreen } from './src/screens/SuccessScreen';
+import PaymentResultScreen from './src/screens/PaymentResultScreen';
 import { useOrderData } from './src/hooks/useOrderData';
 import { useSettingsData } from './src/hooks/useSettingsData';
 import { Screen } from './src/types';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('main');
+  const [paymentResult, setPaymentResult] = useState<{
+    isSuccess: boolean;
+    orderId: string;
+    transactionId: string;
+    errorMessage: string;
+  }>({
+    isSuccess: false,
+    orderId: '',
+    transactionId: '',
+    errorMessage: '',
+  });
+  
   const { orderData, updateOrderData } = useOrderData();
   const { settingsData, updateSettingsData } = useSettingsData();
 
@@ -25,7 +37,27 @@ export default function App() {
   };
 
   const handlePayPress = () => {
-    setCurrentScreen('success');
+    // This will be handled by the payment service callbacks
+  };
+
+  const handlePaymentSuccess = (orderId: string, transactionId: string) => {
+    setPaymentResult({
+      isSuccess: true,
+      orderId,
+      transactionId,
+      errorMessage: '',
+    });
+    setCurrentScreen('result');
+  };
+
+  const handlePaymentFailed = (orderId: string, errorMessage: string) => {
+    setPaymentResult({
+      isSuccess: false,
+      orderId,
+      transactionId: '',
+      errorMessage,
+    });
+    setCurrentScreen('result');
   };
 
   const handleBackToMain = () => {
@@ -42,9 +74,15 @@ export default function App() {
             onBackPress={handleBackToMain}
           />
         );
-      case 'success':
+      case 'result':
         return (
-          <SuccessScreen
+          <PaymentResultScreen
+            isSuccess={paymentResult.isSuccess}
+            orderId={paymentResult.orderId}
+            transactionId={paymentResult.transactionId}
+            errorMessage={paymentResult.errorMessage}
+            onDone={handleBackToMain}
+            onTryAgain={handlePayPress}
             onBackPress={handleBackToMain}
           />
         );
@@ -53,9 +91,12 @@ export default function App() {
         return (
           <MainScreen
             orderData={orderData}
+            settingsData={settingsData}
             onOrderDataChange={updateOrderData}
             onSettingsPress={handleSettingsPress}
             onPayPress={handlePayPress}
+            onPaymentSuccess={handlePaymentSuccess}
+            onPaymentFailed={handlePaymentFailed}
           />
         );
     }

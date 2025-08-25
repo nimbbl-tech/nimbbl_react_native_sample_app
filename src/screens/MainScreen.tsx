@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { View, Text, ScrollView, Switch, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { OrderData } from '../types';
+import { OrderData, SettingsData } from '../types';
 import { globalStyles } from '../styles/globalStyles';
 import { ProductCard } from '../components/ProductCard';
 import { ProductDetails } from '../components/ProductDetails';
@@ -17,19 +17,28 @@ import { usePayment } from '../hooks/usePayment';
 
 interface MainScreenProps {
   orderData: OrderData;
+  settingsData?: SettingsData;
   onOrderDataChange: (data: Partial<OrderData>) => void;
   onSettingsPress: () => void;
   onPayPress: () => void;
+  onPaymentSuccess?: (orderId: string, transactionId: string) => void;
+  onPaymentFailed?: (orderId: string, errorMessage: string) => void;
 }
 
 export const MainScreen: React.FC<MainScreenProps> = ({
   orderData,
+  settingsData,
   onOrderDataChange,
   onSettingsPress,
   onPayPress,
+  onPaymentSuccess,
+  onPaymentFailed,
 }) => {
-  const { paymentData, updatePaymentType, updateSubPaymentType } = useDropdownRelationships();
-  const { isPaymentLoading, handlePayment, cleanup } = usePayment(onPayPress);
+  const { paymentData, updatePaymentType, updateSubPaymentType } = useDropdownRelationships(
+    orderData.paymentCustomisation,
+    orderData.subPaymentCustomisation
+  );
+  const { isPaymentLoading, handlePayment, cleanup } = usePayment(onPayPress, onPaymentSuccess, onPaymentFailed);
 
   // Memoized callback functions for better performance
   const handleAmountChange = useCallback((amount: string) => {
@@ -42,11 +51,15 @@ export const MainScreen: React.FC<MainScreenProps> = ({
 
   const handlePaymentTypeChange = useCallback((value: string) => {
     updatePaymentType(value);
-  }, [updatePaymentType]);
+    // Also update the main order data to keep it in sync
+    onOrderDataChange({ paymentCustomisation: value });
+  }, [updatePaymentType, onOrderDataChange]);
 
   const handleSubPaymentTypeChange = useCallback((value: string) => {
     updateSubPaymentType(value);
-  }, [updateSubPaymentType]);
+    // Also update the main order data to keep it in sync
+    onOrderDataChange({ subPaymentCustomisation: value });
+  }, [updateSubPaymentType, onOrderDataChange]);
 
   const handleOrderLineItemsChange = useCallback((value: boolean) => {
     onOrderDataChange({ orderLineItems: value });
@@ -65,8 +78,8 @@ export const MainScreen: React.FC<MainScreenProps> = ({
   }, [orderData.userDetails, onOrderDataChange]);
 
   const handlePaymentPress = useCallback(() => {
-    handlePayment(orderData);
-  }, [handlePayment, orderData]);
+    handlePayment(orderData, settingsData);
+  }, [handlePayment, orderData, settingsData]);
 
   // Get header customisation options based on order line items toggle
   const getHeaderCustomisationOptions = useCallback(() => {
@@ -75,8 +88,8 @@ export const MainScreen: React.FC<MainScreenProps> = ({
 
   // Check if subpayment dropdown should be visible
   const shouldShowSubPayment = useCallback(() => {
-    return paymentData.paymentType !== 'all payments modes' && paymentData.paymentType !== 'card';
-  }, [paymentData.paymentType]);
+    return orderData.paymentCustomisation !== 'all payments modes' && orderData.paymentCustomisation !== 'card';
+  }, [orderData.paymentCustomisation]);
 
   // Clean up on unmount
   useEffect(() => {
@@ -132,7 +145,7 @@ export const MainScreen: React.FC<MainScreenProps> = ({
           {/* Payment Customisation Dropdown */}
           <Dropdown
             label={Strings.paymentCustomisation}
-            value={paymentData.paymentType}
+            value={orderData.paymentCustomisation}
             options={Arrays.paymentType}
             onValueChange={handlePaymentTypeChange}
           />
@@ -141,7 +154,7 @@ export const MainScreen: React.FC<MainScreenProps> = ({
           {shouldShowSubPayment() && (
             <Dropdown
               label={Strings.subpaymentMode}
-              value={paymentData.subPaymentType}
+              value={orderData.subPaymentCustomisation}
               options={paymentData.availableSubPaymentOptions}
               onValueChange={handleSubPaymentTypeChange}
             />
