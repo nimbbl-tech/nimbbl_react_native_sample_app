@@ -6,6 +6,15 @@ This is a sample React Native app demonstrating how to integrate the **Nimbbl Re
 
 For merchants who want to integrate the Nimbbl SDK quickly, see our **[Simple Integration Guide](SIMPLE_INTEGRATION_EXAMPLE.md)**.
 
+### 🔧 SDK Setup Options
+
+This sample app supports both local development and published npm package:
+
+- **Local Development**: For SDK development and testing
+- **NPM Package**: For production use and testing published package
+
+See **[SDK Setup Guide](SDK_SETUP.md)** for detailed instructions on switching between setups.
+
 ### Key Features:
 - ✅ Simple payment flow
 - ✅ Success/Failure event handling

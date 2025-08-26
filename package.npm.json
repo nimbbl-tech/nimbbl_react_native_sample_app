@@ -7,13 +7,13 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "link:local": "npm uninstall nimbbl-mobile-react-native-sdk; npm install ../nimbbl_mobile_kit_react_native_sdk",
-    "link:npm": "npm uninstall nimbbl-mobile-react-native-sdk; npm install nimbbl-mobile-react-native-sdk@latest",
+    "link:local": "npm uninstall nimbbl-react-native-sdk; npm install ../nimbbl_mobile_kit_react_native_sdk",
+    "link:npm": "npm uninstall nimbbl-react-native-sdk; npm install nimbbl-react-native-sdk",
     "postinstall": "cd ios && pod install"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.2.0",
-    "nimbbl-mobile-react-native-sdk": "^1.0.0-alpha.11",
+    "nimbbl-react-native-sdk": "^1.0.0-alpha",
     "react": "^18.2.0",
     "react-native": "^0.76.0",
     "react-native-safe-area-context": "^5.6.1",

@@ -1,6 +1,6 @@
 import { OrderData, SettingsData } from '../types';
 import { validateOrderData } from '../utils/validation';
-import { NimbblSDK, EVENTS, ENVIRONMENTS } from 'nimbbl-react-native-sdk';
+import { NimbblSDK, EVENTS, ENVIRONMENTS } from 'nimbbl-mobile-react-native-sdk';
 import { NIMBBL_CONFIG, DEBUG_CONFIG, ENVIRONMENT_CONFIGS } from '../constants/config';
 
 // Payment mode mappings (matching iOS implementation exactly)
