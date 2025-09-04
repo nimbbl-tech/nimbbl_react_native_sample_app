@@ -7,7 +7,7 @@ PODS:
   - hermes-engine (0.76.0):
     - hermes-engine/Pre-built (= 0.76.0)
   - hermes-engine/Pre-built (0.76.0)
-  - nimbbl-mobile-react-native-sdk (1.0.0):
+  - nimbbl-mobile-react-native-sdk (1.0.1):
     - nimbbl_mobile_kit_ios_webview_sdk (~> 1.0.12)
     - React-Core
   - nimbbl_mobile_kit_ios_core_api_sdk (1.5.9)
@@ -1764,7 +1764,7 @@ SPEC CHECKSUMS:
   fmt: 10c6e61f4be25dc963c36bd73fc7b1705fe975be
   glog: 08b301085f15bcbb6ff8632a8ebaf239aae04e6a
   hermes-engine: 9de51d2f67336348a6cd5b686330e436d1dbd522
-  nimbbl-mobile-react-native-sdk: a401f9f0993af95bf66b0bdfe0106125db19ca67
+  nimbbl-mobile-react-native-sdk: 2fba06beacc76424b5e1b84a8918f224f234f46d
   nimbbl_mobile_kit_ios_core_api_sdk: 439b9a69d8112e1ee55fa0969e2d08c26388c22a
   nimbbl_mobile_kit_ios_webview_sdk: e03e32395e483574cadd6cef108e9d842a3bdf0a
   RCT-Folly: bf5c0376ffe4dd2cf438dcf86db385df9fdce648
