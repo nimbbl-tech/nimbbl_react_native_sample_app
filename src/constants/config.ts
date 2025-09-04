@@ -5,8 +5,8 @@
  */
 
 export const NIMBBL_CONFIG = {
-  // Environment: 'sandbox' for testing, 'production' for live
-  ENVIRONMENT: 'sandbox' as const,
+  // Environment: 'production' for live, 'sandbox' for testing
+  ENVIRONMENT: 'production' as const,
   
   // SDK options
   OPTIONS: {

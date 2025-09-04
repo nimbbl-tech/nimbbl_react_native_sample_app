@@ -1,6 +1,6 @@
 import { OrderData, SettingsData } from '../types';
 import { validateOrderData } from '../utils/validation';
-import { NimbblSDK, EVENTS, ENVIRONMENTS } from 'nimbbl-mobile-react-native-sdk';
+import { NimbblSDK, ENVIRONMENTS } from 'nimbbl-mobile-react-native-sdk';
 import { NIMBBL_CONFIG, DEBUG_CONFIG, ENVIRONMENT_CONFIGS } from '../constants/config';
 
 // Payment mode mappings (matching iOS implementation exactly)
@@ -100,10 +100,11 @@ export class PaymentService {
       // Get environment URL based on settings (matching iOS pattern exactly)
       const envUrl = this.getEnvironmentUrl();
       
-
+      // Determine the environment based on the URL being used
+      const environment = this.settingsData?.environment || NIMBBL_CONFIG.ENVIRONMENT;
 
       const config = {
-        environment: NIMBBL_CONFIG.ENVIRONMENT,
+        environment: environment,
         options: {
           ...NIMBBL_CONFIG.OPTIONS,
           api_base_url: envUrl, // Set environment URL like iOS
@@ -153,14 +154,14 @@ export class PaymentService {
    */
   private setupEventListeners(): void {
     // SUCCESS: Extract order details from response
-    this.nimbblSDK.addEventListener(EVENTS.PAYMENT_SUCCESS, (data: any) => {
+    this.nimbblSDK.addEventListener('payment_success', (data: any) => {
       const orderId = data?.order_id || data?.nimbbl_order_id || this.currentOrderId || 'N/A';
       const transactionId = data?.transaction_id || data?.nimbbl_transaction_id || 'N/A';
       this.onPaymentSuccess?.(orderId, transactionId);
     });
 
     // FAILURE: Extract order details from response
-    this.nimbblSDK.addEventListener(EVENTS.PAYMENT_FAILED, (data: any) => {
+    this.nimbblSDK.addEventListener('payment_failed', (data: any) => {
       const orderId = data?.order_id || data?.nimbbl_order_id || this.currentOrderId || 'N/A';
       // The error message is in the 'data' field from the native side
       const errorMessage = data?.data || data?.error || 'Payment failed';

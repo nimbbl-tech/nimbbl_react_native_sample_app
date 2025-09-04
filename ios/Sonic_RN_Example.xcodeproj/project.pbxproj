@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		06F4660294CBF10AE8246F2D /* libPods-Sonic_RN_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B3E3F25414BAD14DBF653BF /* libPods-Sonic_RN_Example.a */; };
 		08296A4156EEE01879B166A8 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		0D4D7799E3D7ADA320A66AF0 /* libPods-Sonic_RN_Example-Sonic_RN_ExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49CEF41B30FEBD9A9197C4A7 /* libPods-Sonic_RN_Example-Sonic_RN_ExampleTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		8B901EFA0C4292D983D2D8D9 /* libPods-Sonic_RN_Example-Sonic_RN_ExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E18197805E14DD532EFBDF /* libPods-Sonic_RN_Example-Sonic_RN_ExampleTests.a */; };
+		F5754C3AC8E8734847A2C89F /* libPods-Sonic_RN_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7EB0DBC36D6FBDAF6057EAE /* libPods-Sonic_RN_Example.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,8 +27,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		002D9A29C426DFE7A6F81414 /* Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* Sonic_RN_ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Sonic_RN_ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0628C7522587E66FDAC32F53 /* Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		07B5B5AD674BEED3E44BC36C /* Pods-Sonic_RN_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sonic_RN_Example.debug.xcconfig"; path = "Target Support Files/Pods-Sonic_RN_Example/Pods-Sonic_RN_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Sonic_RN_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sonic_RN_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Sonic_RN_Example/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = Sonic_RN_Example/AppDelegate.mm; sourceTree = "<group>"; };
@@ -36,17 +37,12 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sonic_RN_Example/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Sonic_RN_Example/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = Sonic_RN_Example/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		3B4392A12AC88292D35C810B /* Pods-NewMyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewMyApp.debug.xcconfig"; path = "Target Support Files/Pods-NewMyApp/Pods-NewMyApp.debug.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-NewMyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewMyApp.release.xcconfig"; path = "Target Support Files/Pods-NewMyApp/Pods-NewMyApp.release.xcconfig"; sourceTree = "<group>"; };
-		58F736EBF7CF154D9F4993B0 /* Pods-Sonic_RN_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sonic_RN_Example.debug.xcconfig"; path = "Target Support Files/Pods-Sonic_RN_Example/Pods-Sonic_RN_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-NewMyApp-NewMyAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewMyApp-NewMyAppTests.debug.xcconfig"; path = "Target Support Files/Pods-NewMyApp-NewMyAppTests/Pods-NewMyApp-NewMyAppTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6D69C425C38ED788F46E4CD3 /* Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.release.xcconfig"; path = "Target Support Files/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
-		7B3E3F25414BAD14DBF653BF /* libPods-Sonic_RN_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sonic_RN_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		49CEF41B30FEBD9A9197C4A7 /* libPods-Sonic_RN_Example-Sonic_RN_ExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sonic_RN_Example-Sonic_RN_ExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A1D3A2A6E6A0F6371865C4F /* Pods-Sonic_RN_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sonic_RN_Example.release.xcconfig"; path = "Target Support Files/Pods-Sonic_RN_Example/Pods-Sonic_RN_Example.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Sonic_RN_Example/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-NewMyApp-NewMyAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewMyApp-NewMyAppTests.release.xcconfig"; path = "Target Support Files/Pods-NewMyApp-NewMyAppTests/Pods-NewMyApp-NewMyAppTests.release.xcconfig"; sourceTree = "<group>"; };
-		B5E18197805E14DD532EFBDF /* libPods-Sonic_RN_Example-Sonic_RN_ExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sonic_RN_Example-Sonic_RN_ExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E956C9AA3CCB97E1A4664E2B /* Pods-Sonic_RN_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sonic_RN_Example.release.xcconfig"; path = "Target Support Files/Pods-Sonic_RN_Example/Pods-Sonic_RN_Example.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F1E3953203CDAA90A41BF7DC /* Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.release.xcconfig"; path = "Target Support Files/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		F7EB0DBC36D6FBDAF6057EAE /* libPods-Sonic_RN_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sonic_RN_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B901EFA0C4292D983D2D8D9 /* libPods-Sonic_RN_Example-Sonic_RN_ExampleTests.a in Frameworks */,
+				0D4D7799E3D7ADA320A66AF0 /* libPods-Sonic_RN_Example-Sonic_RN_ExampleTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06F4660294CBF10AE8246F2D /* libPods-Sonic_RN_Example.a in Frameworks */,
+				F5754C3AC8E8734847A2C89F /* libPods-Sonic_RN_Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,8 +83,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				7B3E3F25414BAD14DBF653BF /* libPods-Sonic_RN_Example.a */,
-				B5E18197805E14DD532EFBDF /* libPods-Sonic_RN_Example-Sonic_RN_ExampleTests.a */,
+				F7EB0DBC36D6FBDAF6057EAE /* libPods-Sonic_RN_Example.a */,
+				49CEF41B30FEBD9A9197C4A7 /* libPods-Sonic_RN_Example-Sonic_RN_ExampleTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -126,14 +122,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-NewMyApp.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-NewMyApp.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-NewMyApp-NewMyAppTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-NewMyApp-NewMyAppTests.release.xcconfig */,
-				58F736EBF7CF154D9F4993B0 /* Pods-Sonic_RN_Example.debug.xcconfig */,
-				E956C9AA3CCB97E1A4664E2B /* Pods-Sonic_RN_Example.release.xcconfig */,
-				0628C7522587E66FDAC32F53 /* Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.debug.xcconfig */,
-				6D69C425C38ED788F46E4CD3 /* Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.release.xcconfig */,
+				07B5B5AD674BEED3E44BC36C /* Pods-Sonic_RN_Example.debug.xcconfig */,
+				6A1D3A2A6E6A0F6371865C4F /* Pods-Sonic_RN_Example.release.xcconfig */,
+				002D9A29C426DFE7A6F81414 /* Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.debug.xcconfig */,
+				F1E3953203CDAA90A41BF7DC /* Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -145,12 +137,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "Sonic_RN_ExampleTests" */;
 			buildPhases = (
-				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
+				368D5C40522DC93BAEC42750 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
+				24F5FD4BBDC7B2F8D4032C61 /* [CP] Embed Pods Frameworks */,
+				F454D45B2ED6279EBE180EDA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -166,13 +158,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Sonic_RN_Example" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				CCD972A118FE2724E5F26623 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				8CFFE9FA977A374E022B4AB3 /* [CP] Embed Pods Frameworks */,
+				0F66E3FD3AAC22CB9ED5C54B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -256,24 +248,41 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
+		0F66E3FD3AAC22CB9ED5C54B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example/Pods-Sonic_RN_Example-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example/Pods-Sonic_RN_Example-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example/Pods-Sonic_RN_Example-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example/Pods-Sonic_RN_Example-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example/Pods-Sonic_RN_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example/Pods-Sonic_RN_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
+		24F5FD4BBDC7B2F8D4032C61 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		368D5C40522DC93BAEC42750 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -295,7 +304,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		8CFFE9FA977A374E022B4AB3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example/Pods-Sonic_RN_Example-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example/Pods-Sonic_RN_Example-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example/Pods-Sonic_RN_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CCD972A118FE2724E5F26623 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -317,41 +343,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests/Pods-Sonic_RN_Example-Sonic_RN_ExampleTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example/Pods-Sonic_RN_Example-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example/Pods-Sonic_RN_Example-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sonic_RN_Example/Pods-Sonic_RN_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
+		F454D45B2ED6279EBE180EDA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -400,7 +392,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0628C7522587E66FDAC32F53 /* Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.debug.xcconfig */;
+			baseConfigurationReference = 002D9A29C426DFE7A6F81414 /* Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -427,7 +419,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6D69C425C38ED788F46E4CD3 /* Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.release.xcconfig */;
+			baseConfigurationReference = F1E3953203CDAA90A41BF7DC /* Pods-Sonic_RN_Example-Sonic_RN_ExampleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -451,7 +443,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 58F736EBF7CF154D9F4993B0 /* Pods-Sonic_RN_Example.debug.xcconfig */;
+			baseConfigurationReference = 07B5B5AD674BEED3E44BC36C /* Pods-Sonic_RN_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -486,7 +478,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E956C9AA3CCB97E1A4664E2B /* Pods-Sonic_RN_Example.release.xcconfig */;
+			baseConfigurationReference = 6A1D3A2A6E6A0F6371865C4F /* Pods-Sonic_RN_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
