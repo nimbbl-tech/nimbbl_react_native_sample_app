@@ -7,12 +7,12 @@ export class NimbblService {
   private static instance: NimbblService;
 
   private constructor() {
-    console.log('NimbblService: Constructor called');
+    // console.log('NimbblService: Constructor called');
   }
 
   public static getInstance(): NimbblService {
     if (!NimbblService.instance) {
-      console.log('NimbblService: Creating new instance');
+      // console.log('NimbblService: Creating new instance');
       NimbblService.instance = new NimbblService();
     }
     return NimbblService.instance;
@@ -22,7 +22,7 @@ export class NimbblService {
    * Test function for basic functionality
    */
   public testFunction(a: number, b: number): number {
-    console.log('NimbblService: Testing function...');
+    // console.log('NimbblService: Testing function...');
     return a + b;
   }
 
@@ -30,7 +30,7 @@ export class NimbblService {
    * Clean up listeners
    */
   public cleanup(): void {
-    console.log('NimbblService: Cleaning up listeners...');
+    // console.log('NimbblService: Cleaning up listeners...');
   }
 }
 
