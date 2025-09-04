@@ -100,11 +100,9 @@ export class PaymentService {
       // Get environment URL based on settings (matching iOS pattern exactly)
       const envUrl = this.getEnvironmentUrl();
       
-      // Determine the environment based on the URL being used
-      const environment = this.settingsData?.environment || NIMBBL_CONFIG.ENVIRONMENT;
-
+      // Initialize with production environment only
       const config = {
-        environment: environment,
+        environment: 'production' as const,
         options: {
           ...NIMBBL_CONFIG.OPTIONS,
           api_base_url: envUrl, // Set environment URL like iOS
