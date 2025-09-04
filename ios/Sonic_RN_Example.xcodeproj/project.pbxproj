@@ -459,6 +459,7 @@
 				DEVELOPMENT_TEAM = NT9UTA38UJ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Sonic_RN_Example/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Sonic RN Example";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -492,6 +493,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = NT9UTA38UJ;
 				INFOPLIST_FILE = Sonic_RN_Example/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Sonic RN Example";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
