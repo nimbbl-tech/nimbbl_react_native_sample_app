@@ -21,8 +21,7 @@ interface MainScreenProps {
   onOrderDataChange: (data: Partial<OrderData>) => void;
   onSettingsPress: () => void;
   onPayPress: () => void;
-  onPaymentSuccess?: (orderId: string, transactionId: string) => void;
-  onPaymentFailed?: (orderId: string, errorMessage: string) => void;
+  onCheckoutResponse?: (data: any) => void;
 }
 
 export const MainScreen: React.FC<MainScreenProps> = ({
@@ -31,14 +30,13 @@ export const MainScreen: React.FC<MainScreenProps> = ({
   onOrderDataChange,
   onSettingsPress,
   onPayPress,
-  onPaymentSuccess,
-  onPaymentFailed,
+  onCheckoutResponse,
 }) => {
   const { paymentData, updatePaymentType, updateSubPaymentType } = useDropdownRelationships(
     orderData.paymentCustomisation,
     orderData.subPaymentCustomisation
   );
-  const { isPaymentLoading, handlePayment, cleanup } = usePayment(onPayPress, onPaymentSuccess, onPaymentFailed);
+  const { isPaymentLoading, handlePayment, cleanup } = usePayment(onPayPress, onCheckoutResponse);
 
   // Memoized callback functions for better performance
   const handleAmountChange = useCallback((amount: string) => {

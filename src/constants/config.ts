@@ -17,7 +17,6 @@ export const NIMBBL_CONFIG = {
   
   // Bridge configuration
   BRIDGE_CONFIG: {
-    debug_mode: true,
     event_timeout: 30000,
     max_retries: 3,
   },
@@ -66,9 +65,3 @@ export const ENVIRONMENT_CONFIGS = {
   },
 };
 
-/**
- * Debug configuration (matching iOS pattern)
- */
-export const DEBUG_CONFIG = {
-  debugPrintEnabled: true, // Set to false in production
-};

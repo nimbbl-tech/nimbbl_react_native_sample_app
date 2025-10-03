@@ -28,7 +28,7 @@ export const useSettingsData = () => {
         experience: savedExperience || Strings.defaultWebview, // Default experience
       }));
     } catch (error) {
-      console.error('Error loading settings:', error);
+      // Error loading settings
     }
   };
 
@@ -48,7 +48,7 @@ export const useSettingsData = () => {
         await AsyncStorage.setItem('selectedExperience', updates.experience);
       }
     } catch (error) {
-      console.error('Error saving settings:', error);
+      // Error saving settings
     }
   };
 

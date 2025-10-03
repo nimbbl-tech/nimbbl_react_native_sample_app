@@ -1,110 +1,79 @@
 # Nimbbl React Native SDK Sample App
 
-This is a sample React Native app demonstrating how to integrate the **Nimbbl React Native SDK** for payment processing.
+This is a **production-ready sample app** demonstrating how to integrate the **Nimbbl React Native SDK** for payment processing in your React Native application.
 
 ## 🚀 Quick Integration Guide
 
 For merchants who want to integrate the Nimbbl SDK quickly, see our **[Simple Integration Guide](SIMPLE_INTEGRATION_EXAMPLE.md)**.
 
-### 🔧 SDK Setup Options
+## 📱 What This Sample App Demonstrates
 
-This sample app supports both local development and published npm package:
+- ✅ **Complete Payment Integration** - End-to-end payment flow
+- ✅ **Unified Event Handling** - Success/failure response handling
+- ✅ **Multiple Payment Methods** - Cards, UPI, Netbanking, Wallets
+- ✅ **UI Customization** - Payment options and user interface
+- ✅ **Settings Configuration** - Environment and payment settings
+- ✅ **Error Handling** - Robust error management
+- ✅ **Production Ready** - Uses published npm package
 
-- **Local Development**: For SDK development and testing
-- **NPM Package**: For production use and testing published package
+## 🏃‍♂️ Running the Sample App
 
-See **[SDK Setup Guide](SDK_SETUP.md)** for detailed instructions on switching between setups.
+### Prerequisites
+- Node.js >= 16
+- React Native development environment set up
+- iOS Simulator (for iOS) or Android Emulator (for Android)
 
-### Key Features:
-- ✅ Simple payment flow
-- ✅ Success/Failure event handling
-- ✅ Multiple payment methods support
-- ✅ Customizable UI options
-- ✅ Production-ready integration
-
-## 📱 Sample App Features
-
-This sample app demonstrates:
-- Complete payment integration
-- UI customization options
-- Event handling for success/failure
-- Settings configuration
-- Error handling
-
-# Getting Started
-
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
-
-## Step 1: Start the Metro Server
-
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
-
-To start Metro, run the following command from the _root_ of your React Native project:
+### Quick Start
 
 ```bash
-# using npm
+# Install dependencies
+npm install
+
+# Start Metro bundler
 npm start
 
-# OR using Yarn
-yarn start
+# In a new terminal, run the app
+npm run ios     # For iOS
+npm run android # For Android
 ```
 
-## Step 2: Start your Application
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+## 🔧 Integration Examples
 
-### For Android
+### Basic Payment Flow
+```typescript
+import { NimbblSDK } from 'nimbbl-mobile-react-native-sdk';
 
-```bash
-# using npm
-npm run android
+const nimbblSDK = NimbblSDK.getSharedInstance();
 
-# OR using Yarn
-yarn android
+// Initialize SDK
+await nimbblSDK.initialize();
+
+// Set up payment response handler
+nimbblSDK.addCheckoutResponseListener((data) => {
+  if (data.status === 'success') {
+    // Handle successful payment
+  } else {
+    // Handle failed payment
+  }
+});
+
+// Start payment
+await nimbblSDK.checkout({
+  orderToken: 'YOUR_ORDER_TOKEN'
+});
 ```
 
-### For iOS
+## 📚 Key Integration Points
 
-```bash
-# using npm
-npm run ios
+1. **SDK Initialization** - See `src/services/PaymentService.ts`
+2. **Payment Processing** - See `src/hooks/usePayment.ts`
+3. **Event Handling** - See `src/screens/MainScreen.tsx`
+4. **Result Display** - See `src/screens/PaymentResultScreen.tsx`
+5. **Settings Configuration** - See `src/screens/SettingsScreen.tsx`
 
-# OR using Yarn
-yarn ios
-```
+## 🆘 Need Help?
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- 📖 **Integration Guide**: [SIMPLE_INTEGRATION_EXAMPLE.md](SIMPLE_INTEGRATION_EXAMPLE.md)
+- 📱 **SDK Documentation**: [SDK README](../nimbbl_mobile_kit_react_native_sdk/README.md)
+- 🆘 **Support**: Contact support@nimbbl.biz

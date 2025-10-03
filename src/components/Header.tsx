@@ -23,7 +23,7 @@ export const Header: React.FC<HeaderProps> = ({ onSettingsPress }) => {
 			<TouchableOpacity
 				style={globalStyles.settingsButton}
 				onPress={onSettingsPress}>
-				<Text style={globalStyles.settingsIcon}>⋮</Text>
+				<Text style={globalStyles.settingsIcon}>⚙</Text>
 			</TouchableOpacity>
 		</View>
 	);

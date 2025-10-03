@@ -4,67 +4,59 @@
 
 ### 1. Install the SDK
 ```bash
-npm install nimbbl-react-native-sdk
+npm install nimbbl-mobile-react-native-sdk
 ```
 
 ### 2. Initialize the SDK
 ```typescript
-import { NimbblSDK, EVENTS } from 'nimbbl-react-native-sdk';
+import { NimbblSDK } from 'nimbbl-mobile-react-native-sdk';
 
 const nimbblSDK = NimbblSDK.getSharedInstance();
 
-// Initialize with your config (no credentials required)
+// Initialize with default configuration (production environment)
+await nimbblSDK.initialize();
+
+// OR initialize with custom configuration
 await nimbblSDK.initialize({
-  environment: 'production', // or 'sandbox'
+  environment: 'production', // or 'development', 'staging'
   options: {
-    api_base_url: 'https://api.nimbbl.tech'
+    api_base_url: 'https://api.nimbbl.tech',
+    timeout: 30000,
+    enable_logging: false, // Set to true for development/debugging
+    enable_analytics: true
   }
 });
 ```
 
-### 3. Set Up Event Listeners
+### 3. Set Up Unified Event Listener
 ```typescript
-// SUCCESS: Handle successful payments
-nimbblSDK.addEventListener(EVENTS.PAYMENT_SUCCESS, (data) => {
-  console.log('Payment Success:', data);
-  // Navigate to success screen or show success message
-  navigateToSuccessScreen();
-});
-
-// FAILURE: Handle failed payments
-nimbblSDK.addEventListener(EVENTS.PAYMENT_FAILED, (data) => {
-  console.log('Payment Failed:', data);
-  // Show error message or retry option
-  showErrorMessage('Payment failed. Please try again.');
+// UNIFIED: Handle all payment responses (success, failure, cancelled)
+nimbblSDK.addCheckoutResponseListener((data) => {
+  if (data.status === 'success') {
+    console.log('Payment Success:', data);
+    // Navigate to success screen or show success message
+    navigateToSuccessScreen();
+  } else {
+    console.log('Payment Failed:', data);
+    // Show error message or retry option
+    showErrorMessage('Payment failed. Please try again.');
+  }
 });
 ```
 
-### 4. Create Order and Start Payment
+### 4. Start Payment
 ```typescript
-// Create order
-const orderResult = await nimbblSDK.createShopOrder(
-  'INR',           // currency
-  '100',           // amount (as string)
-  '11',            // productId (for header customization)
-  true,            // orderLineItems
-  'redirect',      // checkoutExperience
-  '',              // paymentMode (empty for all modes)
-  'all banks',     // subPaymentMode
-  {                // user details (optional)
-    email: 'user@example.com',
-    name: 'John Doe',
-    mobile_number: '1234567890'
-  }
-);
-
-// Start checkout
+// Start checkout with your order token (obtained from your backend)
 const checkoutResult = await nimbblSDK.checkout({
-  orderToken: orderResult.data.token,
-  paymentModeCode: '',
-  bankCode: '',
-  walletCode: '',
-  paymentFlow: ''
+  orderToken: 'YOUR_ORDER_TOKEN', // Get this from your backend
+  paymentModeCode: '', // Leave empty for all payment modes
+  bankCode: '',        // Leave empty for all banks
+  walletCode: '',      // Leave empty for all wallets
+  paymentFlow: ''      // Leave empty for default flow
 });
+
+// The actual payment result will come through the event listener
+console.log('Checkout initiated:', checkoutResult);
 ```
 
 ## Complete Example Component
@@ -72,7 +64,7 @@ const checkoutResult = await nimbblSDK.checkout({
 ```typescript
 import React, { useEffect } from 'react';
 import { View, Button, Alert } from 'react-native';
-import { NimbblSDK, EVENTS } from 'nimbbl-react-native-sdk';
+import { NimbblSDK } from 'nimbbl-mobile-react-native-sdk';
 
 const PaymentComponent = () => {
   useEffect(() => {
@@ -82,21 +74,22 @@ const PaymentComponent = () => {
 
   const initializeSDK = async () => {
     const nimbblSDK = NimbblSDK.getSharedInstance();
-    await nimbblSDK.initialize({
-      environment: 'production',
-      options: { api_base_url: 'https://api.nimbbl.tech' }
-    });
+    // Initialize with default configuration (production environment)
+    await nimbblSDK.initialize();
   };
 
   const setupEventListeners = () => {
     const nimbblSDK = NimbblSDK.getSharedInstance();
     
-    nimbblSDK.addEventListener(EVENTS.PAYMENT_SUCCESS, (data) => {
-      Alert.alert('Success', 'Payment completed successfully!');
-    });
-
-    nimbblSDK.addEventListener(EVENTS.PAYMENT_FAILED, (data) => {
-      Alert.alert('Failed', 'Payment failed. Please try again.');
+    // Use unified event listener for all payment responses
+    nimbblSDK.addCheckoutResponseListener((data) => {
+      if (data.status === 'success') {
+        Alert.alert('Success', 'Payment completed successfully!');
+        // Navigate to success screen
+      } else {
+        Alert.alert('Failed', 'Payment failed. Please try again.');
+        // Show retry option
+      }
     });
   };
 
@@ -104,15 +97,9 @@ const PaymentComponent = () => {
     try {
       const nimbblSDK = NimbblSDK.getSharedInstance();
       
-      // Create order
-      const orderResult = await nimbblSDK.createShopOrder(
-        'INR', '100', '11', true, 'redirect', '', 'all banks',
-        { email: 'user@example.com', name: 'John Doe', mobile_number: '1234567890' }
-      );
-
-      // Start checkout
+      // Start checkout with order token from your backend
       await nimbblSDK.checkout({
-        orderToken: orderResult.data.token,
+        orderToken: 'YOUR_ORDER_TOKEN', // Get this from your backend
         paymentModeCode: '',
         bankCode: '',
         walletCode: '',
@@ -136,13 +123,29 @@ export default PaymentComponent;
 ## That's It! 🎉
 
 Your integration is complete. The SDK handles all the complex payment flow, and you just need to:
-1. Initialize the SDK
-2. Set up success/failure event listeners
-3. Create order and start checkout
-4. Handle the results in your event listeners
+1. Initialize the SDK (with default production configuration)
+2. Set up unified checkout response listener
+3. Start checkout with your order token
+4. Handle the results in your event listener
+
+## Key Features (v1.2.0)
+
+- ✅ **Simplified Integration**: No credentials required, production-ready defaults
+- ✅ **Unified Event Handling**: Single listener for all payment responses
+- ✅ **Cross-Platform**: Works identically on iOS and Android
+- ✅ **Production Ready**: Enhanced stability and performance
+- ✅ **Latest Native SDKs**: iOS 2.0.4, Android 4.0.3
 
 The SDK will automatically:
 - Open the payment webview
-- Handle all payment methods
-- Process the payment
-- Send success/failure events back to your app
+- Handle all payment methods (cards, UPI, netbanking, wallets)
+- Process the payment securely
+- Send unified response events back to your app
+- Handle errors and edge cases gracefully
+
+## Need Help?
+
+- 📖 **Full Documentation**: Check the SDK's README.md for detailed API reference
+- 🔧 **Setup Guide**: See the SDK's SETUP.md for development and configuration options
+- 📱 **Sample App**: This repository includes a complete working example
+- 🆘 **Support**: Contact support@nimbbl.biz for assistance

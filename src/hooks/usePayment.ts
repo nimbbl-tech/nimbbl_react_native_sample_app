@@ -5,8 +5,7 @@ import { paymentService } from '../services/PaymentService';
 
 export const usePayment = (
   onPayPress: () => void, 
-  onPaymentSuccess?: (orderId: string, transactionId: string) => void,
-  onPaymentFailed?: (orderId: string, errorMessage: string) => void
+  onCheckoutResponse?: (data: any) => void
 ) => {
   const [isPaymentLoading, setIsPaymentLoading] = useState(false);
 
@@ -16,20 +15,18 @@ export const usePayment = (
     setIsPaymentLoading(true);
     
     try {
-      // Set up success/failure callbacks with order details
-      paymentService.setPaymentSuccessCallback((orderId, transactionId) => {
-        if (onPaymentSuccess) {
-          onPaymentSuccess(orderId || 'N/A', transactionId || 'N/A');
+      // Set up unified checkout response callback
+      paymentService.setCheckoutResponseCallback((data) => {
+        if (onCheckoutResponse) {
+          onCheckoutResponse(data);
         } else {
-          onPayPress();
-        }
-      });
-      
-      paymentService.setPaymentFailureCallback((orderId, errorMessage) => {
-        if (onPaymentFailed) {
-          onPaymentFailed(orderId || 'N/A', errorMessage || 'Payment failed. Please try again.');
-        } else {
-          Alert.alert('Payment Failed', 'Please try again.');
+          // Fallback behavior if no callback is provided
+          const status = data?.status?.toLowerCase();
+          if (status === 'success' || status === 'completed') {
+            Alert.alert('Payment Successful', 'Your payment has been processed successfully.');
+          } else {
+            Alert.alert('Payment Failed', 'Please try again.');
+          }
         }
       });
       
@@ -42,12 +39,12 @@ export const usePayment = (
         Alert.alert('Payment Error', result.errorMessage || 'An error occurred during payment.');
       }
     } catch (error) {
-      console.error('Payment error:', error);
+      // Payment error occurred
       Alert.alert('Payment Error', 'An unexpected error occurred during payment.');
     } finally {
       setIsPaymentLoading(false);
     }
-  }, [isPaymentLoading, onPayPress, onPaymentFailed]);
+  }, [isPaymentLoading, onPayPress, onCheckoutResponse]);
 
   const cleanup = useCallback(() => {
     paymentService.cleanup();

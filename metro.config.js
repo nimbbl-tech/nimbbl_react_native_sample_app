@@ -10,7 +10,7 @@ const path = require('path');
 const config = {
   resolver: {
     extraNodeModules: {
-      'nimbbl-react-native-sdk': path.resolve(__dirname, '../nimbbl_mobile_kit_react_native_sdk'),
+      'nimbbl-mobile-react-native-sdk': path.resolve(__dirname, '../nimbbl_mobile_kit_react_native_sdk'),
     },
   },
   watchFolders: [

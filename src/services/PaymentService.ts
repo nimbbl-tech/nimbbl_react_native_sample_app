@@ -1,7 +1,7 @@
 import { OrderData, SettingsData } from '../types';
 import { validateOrderData } from '../utils/validation';
 import { NimbblSDK, ENVIRONMENTS } from 'nimbbl-mobile-react-native-sdk';
-import { NIMBBL_CONFIG, DEBUG_CONFIG, ENVIRONMENT_CONFIGS } from '../constants/config';
+import { NIMBBL_CONFIG, ENVIRONMENT_CONFIGS } from '../constants/config';
 
 // Payment mode mappings (matching iOS implementation exactly)
 const PAYMENT_MODE_MAPPING: Record<string, string> = {
@@ -47,8 +47,7 @@ export class PaymentService {
   private nimbblSDK: NimbblSDK;
   private isInitialized: boolean = false;
   private settingsData?: SettingsData;
-  private onPaymentSuccess?: (orderId?: string, transactionId?: string) => void;
-  private onPaymentFailure?: (orderId?: string, errorMessage?: string) => void;
+  private onCheckoutResponse?: (data: any) => void;
   private currentOrderId?: string;
   private currentOrderToken?: string;
 
@@ -64,25 +63,12 @@ export class PaymentService {
     return PaymentService.instance;
   }
 
-  /**
-   * Test the native module
-   */
-  public async testNativeModule(): Promise<any> {
-    return this.nimbblSDK.testNativeModule();
-  }
 
   /**
-   * Set the success callback to be called when payment is successful
+   * Set the unified checkout response callback to be called when payment completes (success or failure)
    */
-  public setPaymentSuccessCallback(callback: (orderId?: string, transactionId?: string) => void): void {
-    this.onPaymentSuccess = callback;
-  }
-
-  /**
-   * Set the failure callback to be called when payment fails
-   */
-  public setPaymentFailureCallback(callback: (orderId?: string, errorMessage?: string) => void): void {
-    this.onPaymentFailure = callback;
+  public setCheckoutResponseCallback(callback: (data: any) => void): void {
+    this.onCheckoutResponse = callback;
   }
 
   /**
@@ -117,7 +103,6 @@ export class PaymentService {
       this.isInitialized = true;
 
     } catch (error) {
-      console.error('Failed to initialize Nimbbl SDK:', error);
       throw error;
     }
   }
@@ -148,43 +133,10 @@ export class PaymentService {
   }
 
   /**
-   * Setup event listeners for payment events - SIMPLIFIED for merchants
+   * Setup event listeners for payment events - Using unified checkout_response event
    */
   private setupEventListeners(): void {
-    // SUCCESS: Extract order details from response
-    this.nimbblSDK.addEventListener('payment_success', (data: any) => {
-      const orderId = data?.order_id || data?.nimbbl_order_id || this.currentOrderId || 'N/A';
-      const transactionId = data?.transaction_id || data?.nimbbl_transaction_id || 'N/A';
-      this.onPaymentSuccess?.(orderId, transactionId);
-    });
-
-    // FAILURE: Extract order details from response
-    this.nimbblSDK.addEventListener('payment_failed', (data: any) => {
-      const orderId = data?.order_id || data?.nimbbl_order_id || this.currentOrderId || 'N/A';
-      // The error message is in the 'data' field from the native side
-      const errorMessage = data?.data || data?.error || 'Payment failed';
-      this.onPaymentFailure?.(orderId, errorMessage);
-    });
-    
-    // Direct DeviceEventEmitter listeners as fallback
-    try {
-      const { DeviceEventEmitter } = require('react-native');
-      
-      DeviceEventEmitter.addListener('payment_failed', (data: any) => {
-        const orderId = data?.order_id || data?.nimbbl_order_id || this.currentOrderId || 'N/A';
-        // The error message is in the 'data' field from the native side
-        const errorMessage = data?.data || data?.error || 'Payment failed';
-        this.onPaymentFailure?.(orderId, errorMessage);
-      });
-      
-      DeviceEventEmitter.addListener('payment_success', (data: any) => {
-        const orderId = data?.order_id || data?.nimbbl_order_id || this.currentOrderId || 'N/A';
-        const transactionId = data?.transaction_id || data?.nimbbl_transaction_id || 'N/A';
-        this.onPaymentSuccess?.(orderId, transactionId);
-      });
-    } catch (error) {
-      // Fallback listeners failed, but SDK listeners should still work
-    }
+    // Note: We now use callback-based approach instead of event listeners for better production reliability
   }
 
   /**
@@ -265,18 +217,19 @@ export class PaymentService {
       
 
 
-      // Process payment using checkout method (matching iOS pattern exactly)
-      const checkoutResult = await this.nimbblSDK.checkout(checkoutOptions);
+            // Process payment using checkout method (matching iOS pattern exactly)
+            const checkoutResult = await this.nimbblSDK.checkout(checkoutOptions);
 
-      if (!checkoutResult.success) {
-        throw new Error(checkoutResult.message || 'Checkout failed');
-      }
+            // The checkout method now returns the actual payment result directly
+            // Call the PaymentService callback with the result
+            if (this.onCheckoutResponse && checkoutResult.data) {
+              this.onCheckoutResponse(checkoutResult.data);
+            }
       
-      // Return success immediately after opening the webview
-      // The actual payment result will come through event listeners
-      return { success: true };
+      return { 
+        success: true // Always return success since the checkout process completed
+      };
     } catch (error) {
-      console.error('Payment processing error:', error);
       return { 
         success: false, 
         errorMessage: error instanceof Error ? error.message : 'An error occurred during payment.' 
@@ -333,14 +286,7 @@ export class PaymentService {
    * Clean up any payment-related resources
    */
   public cleanup(): void {
-    try {
-      // Remove all event listeners
-      this.nimbblSDK.removeAllEventListeners();
-      
-
-    } catch (error) {
-      console.error('Error during cleanup:', error);
-    }
+    // No cleanup needed for current implementation
   }
 }
 

@@ -1,5 +1,5 @@
 {
-  "name": "Sonic_RN_Example",
+  "name": "nimbbl-sample-app",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,13 +7,12 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "link:local": "npm uninstall nimbbl-mobile-react-native-sdk; npm install ../nimbbl_mobile_kit_react_native_sdk",
-    "link:npm": "npm uninstall nimbbl-mobile-react-native-sdk; npm install nimbbl-mobile-react-native-sdk@latest",
+    "link:local": "npm uninstall nimbbl-mobile-react-native-sdk; npm install file:../nimbbl_mobile_kit_react_native_sdk",
     "postinstall": "cd ios && pod install"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.2.0",
-    "nimbbl-mobile-react-native-sdk": "file:../nimbbl_mobile_kit_react_native_sdk",
+    "nimbbl-mobile-react-native-sdk": "^1.2.0",
     "react": "^18.2.0",
     "react-native": "^0.76.0",
     "react-native-safe-area-context": "^5.6.1",
