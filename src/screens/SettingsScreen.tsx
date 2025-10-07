@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../types/navigation';
 import { SettingsData } from '../types';
 import { globalStyles } from '../styles/globalStyles';
 import { ScreenHeader } from '../components/ScreenHeader';
@@ -8,21 +10,29 @@ import { Dropdown } from '../components/Dropdown';
 import { Strings, Arrays } from '../constants/strings';
 import { Colors } from '../constants/colors';
 import { Fonts } from '../constants/fonts';
+import { useSettings } from '../contexts/SettingsContext';
+import { API_URLS } from '../constants/apiUrls';
+
+type SettingsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Settings'>;
 
 interface SettingsScreenProps {
-  settingsData: SettingsData;
-  onSettingsDataChange: (data: Partial<SettingsData>) => void;
-  onBackPress: () => void;
+  navigation: SettingsScreenNavigationProp;
 }
 
-export const SettingsScreen: React.FC<SettingsScreenProps> = ({
-  settingsData,
-  onSettingsDataChange,
-  onBackPress,
-}) => {
+export const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) => {
+  const { settingsData, updateSettingsData } = useSettings();
+
+  const handleBackPress = () => {
+    navigation.goBack();
+  };
+
+  const handleDonePress = () => {
+    // Settings are already saved via updateSettingsData calls
+    navigation.goBack();
+  };
   return (
-    <View style={globalStyles.container}>
-      <ScreenHeader title={Strings.settingsTitle} onBackPress={onBackPress} />
+    <SafeAreaView style={globalStyles.container} edges={['top', 'left', 'right']}>
+      <ScreenHeader title={Strings.settingsTitle} onBackPress={handleBackPress} />
 
       <ScrollView style={globalStyles.scrollView}>
         <View style={styles.settingsContent}>
@@ -31,7 +41,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             label={Strings.selectEnvironment}
             value={settingsData.environment}
             options={Arrays.appEnvironments}
-            onValueChange={(value) => onSettingsDataChange({ environment: value })}
+            onValueChange={(value) => updateSettingsData({ environment: value })}
           />
 
           {/* QA URL Input */}
@@ -40,9 +50,9 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
               <Text style={styles.qaUrlLabel}>{Strings.qaUrlHint}</Text>
               <TextInput
                 style={styles.qaUrlInput}
-                placeholder={Strings.qaUrlHint}
+                placeholder={API_URLS.QA}
                 value={settingsData.qaUrl}
-                onChangeText={(text) => onSettingsDataChange({ qaUrl: text })}
+                onChangeText={(text) => updateSettingsData({ qaUrl: text })}
               />
             </View>
           )}
@@ -52,13 +62,13 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             label={Strings.selectExperience}
             value={settingsData.experience}
             options={Arrays.appExperienceMode}
-            onValueChange={(value) => onSettingsDataChange({ experience: value })}
+            onValueChange={(value) => updateSettingsData({ experience: value })}
           />
 
           {/* Done Button */}
           <TouchableOpacity
             style={styles.doneButton}
-            onPress={onBackPress}>
+            onPress={handleDonePress}>
             <Text style={styles.doneButtonText}>{Strings.lblDone}</Text>
           </TouchableOpacity>
         </View>
@@ -66,7 +76,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
 
       {/* Bottom Safe Area */}
       <SafeAreaView edges={['bottom']} />
-    </View>
+    </SafeAreaView>
   );
 };
 

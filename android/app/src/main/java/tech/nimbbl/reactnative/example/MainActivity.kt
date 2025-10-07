@@ -1,8 +1,10 @@
 package tech.nimbbl.reactnative.example
 
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
-import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
 
 class MainActivity : ReactActivity() {
@@ -18,5 +20,11 @@ class MainActivity : ReactActivity() {
    * which allows you to enable New Architecture with a single boolean flags [fabricEnabled]
    */
   override fun createReactActivityDelegate(): ReactActivityDelegate =
-      DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
+      DefaultReactActivityDelegate(this, mainComponentName, false) // Force disable Fabric
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    // This is required to make react-native-screens work properly
+    // It prevents screen fragments from being restored
+    super.onCreate(null)
+  }
 }

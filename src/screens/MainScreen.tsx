@@ -1,6 +1,8 @@
-import React, { useCallback, useEffect } from 'react';
-import { View, Text, ScrollView, Switch, TouchableOpacity } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { View, Text, ScrollView, Switch, TouchableOpacity, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../types/navigation';
 import { OrderData, SettingsData } from '../types';
 import { globalStyles } from '../styles/globalStyles';
 import { ProductCard } from '../components/ProductCard';
@@ -14,70 +16,92 @@ import { Colors } from '../constants/colors';
 import { Fonts } from '../constants/fonts';
 import { useDropdownRelationships } from '../hooks/useDropdownRelationships';
 import { usePayment } from '../hooks/usePayment';
+import { useOrderData } from '../hooks/useOrderData';
+import { useSettings } from '../contexts/SettingsContext';
+import { paymentService } from '../services/PaymentService';
+
+type MainScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Main'>;
 
 interface MainScreenProps {
-  orderData: OrderData;
-  settingsData?: SettingsData;
-  onOrderDataChange: (data: Partial<OrderData>) => void;
-  onSettingsPress: () => void;
-  onPayPress: () => void;
-  onCheckoutResponse?: (data: any) => void;
+  navigation: MainScreenNavigationProp;
 }
 
-export const MainScreen: React.FC<MainScreenProps> = ({
-  orderData,
-  settingsData,
-  onOrderDataChange,
-  onSettingsPress,
-  onPayPress,
-  onCheckoutResponse,
-}) => {
+export const MainScreen: React.FC<MainScreenProps> = ({ navigation }) => {
+  const { orderData, updateOrderData } = useOrderData();
+  const { settingsData, updateSettingsData } = useSettings();
   const { paymentData, updatePaymentType, updateSubPaymentType } = useDropdownRelationships(
     orderData.paymentCustomisation,
     orderData.subPaymentCustomisation
   );
-  const { isPaymentLoading, handlePayment, cleanup } = usePayment(onPayPress, onCheckoutResponse);
+  
+  
+
+  const handleSettingsPress = () => {
+    navigation.navigate('Settings');
+  };
+
+  const handlePayPress = () => {
+    // This will be handled by the payment service callbacks
+  };
+
+               const handleCheckoutResponse = (data: any) => {
+                 // Send raw data to PaymentResult screen for parsing
+                 navigation.navigate('PaymentResult', { paymentData: data });
+               };
+
+  const { isPaymentLoading, handlePayment, cleanup } = usePayment(handlePayPress, handleCheckoutResponse);
 
   // Memoized callback functions for better performance
   const handleAmountChange = useCallback((amount: string) => {
-    onOrderDataChange({ amount });
-  }, [onOrderDataChange]);
+    updateOrderData({ amount });
+  }, [updateOrderData]);
 
   const handleCurrencyChange = useCallback((currency: string) => {
-    onOrderDataChange({ currency });
-  }, [onOrderDataChange]);
+    updateOrderData({ currency });
+  }, [updateOrderData]);
 
   const handlePaymentTypeChange = useCallback((value: string) => {
     updatePaymentType(value);
     // Also update the main order data to keep it in sync
-    onOrderDataChange({ paymentCustomisation: value });
-  }, [updatePaymentType, onOrderDataChange]);
+    updateOrderData({ paymentCustomisation: value });
+  }, [updatePaymentType, updateOrderData]);
 
   const handleSubPaymentTypeChange = useCallback((value: string) => {
     updateSubPaymentType(value);
     // Also update the main order data to keep it in sync
-    onOrderDataChange({ subPaymentCustomisation: value });
-  }, [updateSubPaymentType, onOrderDataChange]);
+    updateOrderData({ subPaymentCustomisation: value });
+  }, [updateSubPaymentType, updateOrderData]);
 
   const handleOrderLineItemsChange = useCallback((value: boolean) => {
-    onOrderDataChange({ orderLineItems: value });
+    updateOrderData({ orderLineItems: value });
     
     // Reset header customisation to first option when order line items changes
     const newOptions = value ? Arrays.optionEnabled : Arrays.optionDisabled;
-    onOrderDataChange({ headerCustomisation: newOptions[0] });
-  }, [onOrderDataChange]);
+    updateOrderData({ headerCustomisation: newOptions[0] });
+  }, [updateOrderData]);
 
   const handleHeaderCustomisationChange = useCallback((value: string) => {
-    onOrderDataChange({ headerCustomisation: value });
-  }, [onOrderDataChange]);
+    updateOrderData({ headerCustomisation: value });
+  }, [updateOrderData]);
 
   const handleUserDetailsToggle = useCallback(() => {
-    onOrderDataChange({ userDetails: !orderData.userDetails });
-  }, [orderData.userDetails, onOrderDataChange]);
+    updateOrderData({ userDetails: !orderData.userDetails });
+  }, [orderData.userDetails, updateOrderData]);
 
   const handlePaymentPress = useCallback(() => {
     handlePayment(orderData, settingsData);
   }, [handlePayment, orderData, settingsData]);
+
+  const handleSettingsDone = useCallback(async (newSettingsData: SettingsData) => {
+    try {
+      // Initialize SDK with the selected environment settings
+      await paymentService.initialize(newSettingsData);
+      updateSettingsData(newSettingsData);
+    } catch (error) {
+      console.error('❌ MainScreen: Failed to initialize SDK with settings:', error);
+    }
+    navigation.goBack();
+  }, [updateSettingsData, navigation]);
 
   // Get header customisation options based on order line items toggle
   const getHeaderCustomisationOptions = useCallback(() => {
@@ -89,6 +113,22 @@ export const MainScreen: React.FC<MainScreenProps> = ({
     return orderData.paymentCustomisation !== 'all payments modes' && orderData.paymentCustomisation !== 'card';
   }, [orderData.paymentCustomisation]);
 
+
+  // Re-initialize SDK when settings change
+  useEffect(() => {
+    const reinitializeSDK = async () => {
+      if (settingsData) {
+        try {
+          await paymentService.initialize(settingsData);
+        } catch (error) {
+          console.error('❌ MainScreen: Failed to re-initialize SDK:', error);
+        }
+      }
+    };
+    
+    reinitializeSDK();
+  }, [settingsData.environment, settingsData.qaUrl, settingsData.preProdUrl, settingsData.prodUrl]);
+
   // Clean up on unmount
   useEffect(() => {
     return () => {
@@ -96,9 +136,10 @@ export const MainScreen: React.FC<MainScreenProps> = ({
     };
   }, [cleanup]);
 
+
   return (
-    <View style={globalStyles.container}>
-      <Header onSettingsPress={onSettingsPress} />
+    <SafeAreaView style={globalStyles.container} edges={['top', 'left', 'right']}>
+      <Header onSettingsPress={handleSettingsPress} />
 
       <ScrollView style={globalStyles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={globalStyles.content}>
@@ -172,12 +213,12 @@ export const MainScreen: React.FC<MainScreenProps> = ({
 
           <UserDetailsForm 
             orderData={orderData} 
-            onOrderDataChange={onOrderDataChange} 
+            onOrderDataChange={updateOrderData} 
           />
 
-          <PayButton isLoading={isPaymentLoading} onPress={handlePaymentPress} />
+                 <PayButton isLoading={isPaymentLoading} onPress={handlePaymentPress} />
 
-          <View style={styles.bottomSpacer} />
+                 <View style={styles.bottomSpacer} />
         </View>
       </ScrollView>
 
@@ -185,7 +226,7 @@ export const MainScreen: React.FC<MainScreenProps> = ({
       <SafeAreaView edges={['bottom']} style={globalStyles.bottomHeader}>
         <Text style={globalStyles.bottomHeaderText}>{Strings.copyrightText}</Text>
       </SafeAreaView>
-    </View>
+    </SafeAreaView>
   );
 };
 

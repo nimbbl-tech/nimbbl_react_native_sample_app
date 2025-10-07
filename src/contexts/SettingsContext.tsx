@@ -1,10 +1,21 @@
-import { useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SettingsData } from '../types';
 import { Strings } from '../constants/strings';
 import { API_URLS } from '../constants/apiUrls';
 
-export const useSettingsData = () => {
+interface SettingsContextType {
+  settingsData: SettingsData;
+  updateSettingsData: (updates: Partial<SettingsData>) => Promise<void>;
+}
+
+const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
+
+interface SettingsProviderProps {
+  children: ReactNode;
+}
+
+export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) => {
   const [settingsData, setSettingsData] = useState<SettingsData>({
     environment: 'Prod', // Default to Prod
     qaUrl: API_URLS.QA, // Default QA URL for when QA is selected
@@ -26,29 +37,26 @@ export const useSettingsData = () => {
       const savedProdUrl = await AsyncStorage.getItem('prodEnvironmentUrl');
       const savedExperience = await AsyncStorage.getItem('selectedExperience');
 
-      setSettingsData(prev => ({
-        ...prev,
-        environment: savedEnvironment || 'Prod', // Always default to Prod if no saved value
-        qaUrl: savedQaUrl || API_URLS.QA, // Default QA URL
-        preProdUrl: savedPreProdUrl || API_URLS.PRE_PROD, // Default Pre-Prod URL
-        prodUrl: savedProdUrl || API_URLS.PROD, // Default Prod URL
-        experience: savedExperience || Strings.defaultWebview, // Default experience
-      }));
+      const newSettings = {
+        environment: savedEnvironment || 'Prod',
+        qaUrl: savedQaUrl || API_URLS.QA,
+        preProdUrl: savedPreProdUrl || API_URLS.PRE_PROD,
+        prodUrl: savedProdUrl || API_URLS.PROD,
+        experience: savedExperience || Strings.defaultWebview,
+      };
+
+      setSettingsData(newSettings);
     } catch (error) {
-      // Error loading settings
+      console.error('🔧 SettingsContext: Error loading settings:', error);
     }
   };
 
   const updateSettingsData = async (updates: Partial<SettingsData>) => {
     try {
-      
       // Update local state
-      setSettingsData(prev => {
-        const newData = { ...prev, ...updates };
-        return newData;
-      });
+      setSettingsData(prev => ({ ...prev, ...updates }));
 
-      // Persist to AsyncStorage (matching iOS UserDefaults pattern)
+      // Persist to AsyncStorage
       if (updates.environment !== undefined) {
         await AsyncStorage.setItem('selectedEnvironment', updates.environment);
       }
@@ -64,14 +72,22 @@ export const useSettingsData = () => {
       if (updates.experience !== undefined) {
         await AsyncStorage.setItem('selectedExperience', updates.experience);
       }
-      
     } catch (error) {
-      console.error('🔧 useSettingsData: Error saving settings:', error);
+      console.error('🔧 SettingsContext: Error saving settings:', error);
     }
   };
 
-  return {
-    settingsData,
-    updateSettingsData,
-  };
+  return (
+    <SettingsContext.Provider value={{ settingsData, updateSettingsData }}>
+      {children}
+    </SettingsContext.Provider>
+  );
+};
+
+export const useSettings = (): SettingsContextType => {
+  const context = useContext(SettingsContext);
+  if (context === undefined) {
+    throw new Error('useSettings must be used within a SettingsProvider');
+  }
+  return context;
 };

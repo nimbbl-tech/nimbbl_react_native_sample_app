@@ -208,3 +208,32 @@ docs/build/
 
 # Local configuration
 local.properties
+
+# Android specific
+android/local.properties
+android/keystore.properties
+android/app/debug.keystore
+
+# iOS specific
+ios/Pods/
+ios/Podfile.lock
+ios/*.xcworkspace/xcuserdata/
+ios/*.xcodeproj/xcuserdata/
+
+# React Native specific
+.react-native/
+.react-native-cli.config.js
+
+# Metro
+.metro-health-check*
+.metro-cache/
+
+# Flipper
+.flipper/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

@@ -10,6 +10,7 @@ export const usePayment = (
   const [isPaymentLoading, setIsPaymentLoading] = useState(false);
 
   const handlePayment = useCallback(async (orderData: OrderData, settingsData?: SettingsData) => {
+    
     if (isPaymentLoading) return;
     
     setIsPaymentLoading(true);

@@ -16,6 +16,8 @@ export interface OrderData {
 export interface SettingsData {
   environment: string;
   qaUrl: string;
+  preProdUrl: string;
+  prodUrl: string;
   experience: string;
 }
 
@@ -29,4 +31,30 @@ export interface PaymentDropdownData {
   paymentType: string;
   subPaymentType: string;
   availableSubPaymentOptions: string[];
+}
+
+export interface PaymentResultData {
+  orderId: string;
+  transactionId?: string;
+  status: 'success' | 'failed' | 'cancelled';
+  message?: string;
+  amount?: number;
+  currency?: string;
+  // Additional fields from Android sample app
+  invoiceId?: string;
+  orderDate?: string;
+  reason?: string;
+  cancellationReason?: string;
+  attempts?: number;
+  referrerPlatform?: string;
+  referrerPlatformVersion?: string;
+  deviceName?: string;
+  deviceOsName?: string;
+  deviceIpAddress?: string;
+  shippingCity?: string;
+  shippingState?: string;
+  shippingCountry?: string;
+  shippingPincode?: string;
+  isEncrypted?: boolean;
+  encryptedResponse?: string;
 }

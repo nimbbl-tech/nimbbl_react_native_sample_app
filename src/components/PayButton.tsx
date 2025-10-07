@@ -17,7 +17,7 @@ export const PayButton: React.FC<PayButtonProps> = ({ isLoading, onPress }) => {
         onPress={onPress}
         disabled={isLoading}>
         <Text style={styles.payButtonText}>
-          {isLoading ? Strings.creatingOrder : Strings.payNow}
+          {Strings.payNow}
         </Text>
       </TouchableOpacity>
     </View>

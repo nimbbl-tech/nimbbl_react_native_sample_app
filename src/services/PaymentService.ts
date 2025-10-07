@@ -1,7 +1,7 @@
 import { OrderData, SettingsData } from '../types';
 import { validateOrderData } from '../utils/validation';
-import { NimbblSDK, ENVIRONMENTS } from 'nimbbl-mobile-react-native-sdk';
-import { NIMBBL_CONFIG, ENVIRONMENT_CONFIGS } from '../constants/config';
+import { NimbblSDK } from 'nimbbl-mobile-react-native-sdk';
+import { API_URLS } from '../constants/apiUrls';
 
 // Payment mode mappings (matching iOS implementation exactly)
 const PAYMENT_MODE_MAPPING: Record<string, string> = {
@@ -75,24 +75,23 @@ export class PaymentService {
    * Initialize the Nimbbl SDK (matching iOS pattern exactly)
    */
   public async initialize(settingsData?: SettingsData): Promise<void> {
+    // Always re-initialize if new settings are provided, even if already initialized
     if (this.isInitialized && !settingsData) return;
 
     try {
       // Store settings data for later use
       if (settingsData) {
         this.settingsData = settingsData;
+        // Force re-initialization when settings change
+        this.isInitialized = false;
       }
 
       // Get environment URL based on settings (matching iOS pattern exactly)
       const envUrl = this.getEnvironmentUrl();
       
-      // Initialize with production environment only
+      // Initialize with simplified config (matching new SDK format)
       const config = {
-        environment: 'production' as const,
-        options: {
-          ...NIMBBL_CONFIG.OPTIONS,
-          api_base_url: envUrl, // Set environment URL like iOS
-        },
+        api_base_url: envUrl, // Set environment URL like iOS
       };
 
       await this.nimbblSDK.initialize(config);
@@ -112,24 +111,20 @@ export class PaymentService {
    */
   private getEnvironmentUrl(): string {
     if (!this.settingsData) {
-      return ENVIRONMENT_CONFIGS['Prod'].api_base_url; // Default to Prod
+      return API_URLS.PROD; // Default to production
     }
 
-    const env = this.settingsData.environment;
-    
-    // Handle QA environment with custom URL support
-    if (env === 'QA') {
-      // Use custom QA URL if provided, otherwise use default QA URL
-      if (this.settingsData.qaUrl && this.settingsData.qaUrl.trim() !== '') {
-        return this.settingsData.qaUrl;
-      }
-      
-      // Use default QA URL
-      return ENVIRONMENT_CONFIGS['QA 1'].api_base_url;
+    // Use environment-specific URL based on the selected environment
+    switch (this.settingsData.environment) {
+      case 'QA':
+        return this.settingsData.qaUrl || API_URLS.QA;
+      case 'Pre-Prod':
+        return this.settingsData.preProdUrl || API_URLS.PRE_PROD;
+      case 'Prod':
+        return this.settingsData.prodUrl || API_URLS.PROD;
+      default:
+        return API_URLS.PROD;
     }
-    
-    // For other environments, use the configured URL
-    return ENVIRONMENT_CONFIGS[env as keyof typeof ENVIRONMENT_CONFIGS]?.api_base_url || ENVIRONMENT_CONFIGS['Prod'].api_base_url;
   }
 
   /**
@@ -143,6 +138,7 @@ export class PaymentService {
    * Process payment with validation and error handling (matching iOS pattern exactly)
    */
   public async processPayment(orderData: OrderData, settingsData?: SettingsData): Promise<{ success: boolean; errorMessage?: string }> {
+    
     try {
       // Validate order data
       const validation = validateOrderData(orderData);
@@ -220,10 +216,11 @@ export class PaymentService {
             // Process payment using checkout method (matching iOS pattern exactly)
             const checkoutResult = await this.nimbblSDK.checkout(checkoutOptions);
 
-            // The checkout method now returns the actual payment result directly
+            // The checkout method now returns the raw JSON response directly from native SDK
             // Call the PaymentService callback with the result
-            if (this.onCheckoutResponse && checkoutResult.data) {
-              this.onCheckoutResponse(checkoutResult.data);
+            if (this.onCheckoutResponse) {
+              this.onCheckoutResponse(checkoutResult);
+            } else {
             }
       
       return { 
@@ -275,11 +272,11 @@ export class PaymentService {
   /**
    * Get payment flow (matching iOS implementation exactly)
    */
-  private getPaymentFlow(subPaymentCustomisation: string, paymentModeCode: string): string | undefined {
+  private getPaymentFlow(subPaymentCustomisation: string, paymentModeCode: string): string {
     if (paymentModeCode === 'UPI') {
       return PAYMENT_FLOW_MAPPING[subPaymentCustomisation.toLowerCase()] || '';
     }
-    return undefined;
+    return '';
   }
 
   /**
