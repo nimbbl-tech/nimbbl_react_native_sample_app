@@ -8,6 +8,82 @@ This is the official sample application for the **Nimbbl React Native SDK v1.3.0
 
 For merchants who want to integrate the Nimbbl SDK quickly, see our **[Simple Integration Guide](SIMPLE_INTEGRATION_EXAMPLE.md)**.
 
+## 📦 SDK Integration into Your App
+
+### Step 1: Install the SDK
+
+```bash
+npm install nimbbl-mobile-react-native-sdk
+```
+
+### Step 2: iOS Setup
+
+```bash
+cd ios && pod install
+```
+
+### Step 3: Android Setup
+
+No additional setup required - the SDK uses autolinking.
+
+### Step 4: Basic Integration
+
+```typescript
+import { NimbblSDK } from 'nimbbl-mobile-react-native-sdk';
+
+// Initialize the SDK
+const nimbblSDK = NimbblSDK.getSharedInstance();
+await nimbblSDK.initialize();
+
+// Use in your payment component
+const handlePayment = async () => {
+  try {
+    const result = await nimbblSDK.checkout({
+      orderToken: 'YOUR_ORDER_TOKEN', // Get from your backend
+      paymentModeCode: 'UPI', // Optional: 'UPI', 'Netbanking', 'Wallet', 'card' or '' for all
+      bankCode: 'hdfc', // Optional: Bank code for specific bank or '' for all banks
+      walletCode: 'phonepe', // Optional: Wallet code for specific wallet or '' for all wallets
+      paymentFlow: 'phonepe' // Optional: 'phonepe', 'collect', 'intent' or '' for default
+    });
+    
+    // Handle payment result
+    if (result.status === 'success') {
+      // Payment successful
+      console.log('Payment successful:', result);
+    } else {
+      // Payment failed
+      console.log('Payment failed:', result);
+    }
+  } catch (error) {
+    console.error('Payment error:', error);
+  }
+};
+```
+
+### Step 5: Required Dependencies
+
+The SDK requires these dependencies (already included in this sample app):
+
+```json
+{
+  "dependencies": {
+    "@react-navigation/native": "^7.1.18",
+    "@react-navigation/native-stack": "^7.3.27",
+    "react-native-screens": "^4.16.0",
+    "react-native-safe-area-context": "^5.6.1",
+    "react-native-webview": "^13.15.0",
+    "@react-native-async-storage/async-storage": "^2.2.0"
+  }
+}
+```
+
+**Note**: We use `@react-navigation/native-stack` instead of `@react-navigation/stack` to avoid the `react-native-gesture-handler` dependency.
+
+
+
+
+
+
 ## ✨ First Release Features
 
 - ✅ **Production Ready** - Built with production best practices and comprehensive testing
@@ -60,23 +136,21 @@ const nimbblSDK = NimbblSDK.getSharedInstance();
 // Initialize SDK
 await nimbblSDK.initialize();
 
-// Set up payment response handler
-nimbblSDK.addCheckoutResponseListener((data) => {
-  if (data.status === 'success') {
-    // Handle successful payment
-  } else {
-    // Handle failed payment
-  }
+// Start payment and handle response
+const checkoutResult = await nimbblSDK.checkout({
+  orderToken: 'YOUR_ORDER_TOKEN', // Required: Get this from your backend
+  paymentModeCode: 'UPI', // Optional: 'UPI', 'Netbanking', 'Wallet', 'card' or '' for all
+  bankCode: 'hdfc', // Optional: Bank code for specific bank or '' for all banks
+  walletCode: 'phonepe', // Optional: Wallet code for specific wallet or '' for all wallets
+  paymentFlow: 'phonepe' // Optional: 'phonepe', 'collect', 'intent' or '' for default
 });
 
-// Start payment with all optional parameters
-await nimbblSDK.checkout({
-  orderToken: 'YOUR_ORDER_TOKEN', // Required: Get this from your backend
-  paymentModeCode: 'UPI', // Optional: 'UPI', 'CARD', 'NETBANKING', 'WALLET', 'EMI', 'CASH' or '' for all
-  bankCode: 'HDFC', // Optional: Bank code for specific bank or '' for all banks
-  walletCode: 'PAYTM', // Optional: Wallet code for specific wallet or '' for all wallets
-  paymentFlow: 'redirect' // Optional: 'redirect', 'phonepe', 'collect', 'intent' or '' for default
-});
+// Handle the response
+if (checkoutResult.status === 'success') {
+  // Handle successful payment
+} else {
+  // Handle failed payment
+}
 ```
 
 ## 📚 Key Integration Points

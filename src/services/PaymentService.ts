@@ -53,7 +53,6 @@ export class PaymentService {
 
   private constructor() {
     this.nimbblSDK = NimbblSDK.getSharedInstance();
-    this.setupEventListeners();
   }
 
   public static getInstance(): PaymentService {
@@ -96,9 +95,6 @@ export class PaymentService {
 
       await this.nimbblSDK.initialize(config);
       
-      // Setup event listeners
-      this.setupEventListeners();
-      
       this.isInitialized = true;
 
     } catch (error) {
@@ -130,9 +126,6 @@ export class PaymentService {
   /**
    * Setup event listeners for payment events - Using unified checkout_response event
    */
-  private setupEventListeners(): void {
-    // Note: We now use callback-based approach instead of event listeners for better production reliability
-  }
 
   /**
    * Process payment with validation and error handling (matching iOS pattern exactly)
@@ -282,9 +275,6 @@ export class PaymentService {
   /**
    * Clean up any payment-related resources
    */
-  public cleanup(): void {
-    // No cleanup needed for current implementation
-  }
 }
 
 // Export singleton instance

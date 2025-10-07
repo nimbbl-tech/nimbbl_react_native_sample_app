@@ -1,12 +1,12 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { MainScreen } from '../screens/MainScreen';
 import { SettingsScreen } from '../screens/SettingsScreen';
 import PaymentResultScreen from '../screens/PaymentResultScreen';
 import { RootStackParamList } from '../types/navigation';
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const AppNavigator: React.FC = () => {
   return (

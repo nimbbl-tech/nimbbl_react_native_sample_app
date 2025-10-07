@@ -47,13 +47,8 @@ export const usePayment = (
     }
   }, [isPaymentLoading, onPayPress, onCheckoutResponse]);
 
-  const cleanup = useCallback(() => {
-    paymentService.cleanup();
-  }, []);
-
   return {
     isPaymentLoading,
     handlePayment,
-    cleanup,
   };
 };

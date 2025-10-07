@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../types/navigation';
 import { PaymentResultData } from '../types';
 import { ScreenHeader } from '../components/ScreenHeader';
 
-type PaymentResultScreenNavigationProp = StackNavigationProp<RootStackParamList, 'PaymentResult'>;
+type PaymentResultScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'PaymentResult'>;
 type PaymentResultScreenRouteProp = RouteProp<RootStackParamList, 'PaymentResult'>;
 
 interface PaymentResultScreenProps {

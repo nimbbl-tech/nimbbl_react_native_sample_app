@@ -49,7 +49,7 @@ export const MainScreen: React.FC<MainScreenProps> = ({ navigation }) => {
                  navigation.navigate('PaymentResult', { paymentData: data });
                };
 
-  const { isPaymentLoading, handlePayment, cleanup } = usePayment(handlePayPress, handleCheckoutResponse);
+  const { isPaymentLoading, handlePayment } = usePayment(handlePayPress, handleCheckoutResponse);
 
   // Memoized callback functions for better performance
   const handleAmountChange = useCallback((amount: string) => {
@@ -130,11 +130,6 @@ export const MainScreen: React.FC<MainScreenProps> = ({ navigation }) => {
   }, [settingsData.environment, settingsData.qaUrl, settingsData.preProdUrl, settingsData.prodUrl]);
 
   // Clean up on unmount
-  useEffect(() => {
-    return () => {
-      cleanup();
-    };
-  }, [cleanup]);
 
 
   return (
