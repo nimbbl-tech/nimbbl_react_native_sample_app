@@ -5,7 +5,7 @@ import { paymentService } from '../services/PaymentService';
 
 export const usePayment = (
   onPayPress: () => void, 
-  onCheckoutResponse?: (data: any) => void
+  handleCheckoutResponse?: (data: any) => void
 ) => {
   const [isPaymentLoading, setIsPaymentLoading] = useState(false);
 
@@ -18,8 +18,8 @@ export const usePayment = (
     try {
       // Set up unified checkout response callback
       paymentService.setCheckoutResponseCallback((data) => {
-        if (onCheckoutResponse) {
-          onCheckoutResponse(data);
+        if (handleCheckoutResponse) {
+          handleCheckoutResponse(data);
         } else {
           // Fallback behavior if no callback is provided
           const status = data?.status?.toLowerCase();
@@ -45,7 +45,7 @@ export const usePayment = (
     } finally {
       setIsPaymentLoading(false);
     }
-  }, [isPaymentLoading, onPayPress, onCheckoutResponse]);
+  }, [isPaymentLoading, onPayPress, handleCheckoutResponse]);
 
   return {
     isPaymentLoading,

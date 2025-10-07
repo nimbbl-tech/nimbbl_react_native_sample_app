@@ -48,8 +48,6 @@ export class PaymentService {
   private isInitialized: boolean = false;
   private settingsData?: SettingsData;
   private onCheckoutResponse?: (data: any) => void;
-  private currentOrderId?: string;
-  private currentOrderToken?: string;
 
   private constructor() {
     this.nimbblSDK = NimbblSDK.getSharedInstance();
@@ -190,9 +188,7 @@ export class PaymentService {
 
       const order = orderResult.data;
       
-      // Store order details for event callbacks
-      this.currentOrderId = order.order_id || order.nimbbl_order_id || `ORDER_${Date.now()}`;
-      this.currentOrderToken = order.token;
+      // Order token is used directly in checkout options
       
       // Build checkout options matching our SDK's checkout method (matching iOS pattern exactly)
       // Use the same paymentMode that was used for order creation to ensure consistency

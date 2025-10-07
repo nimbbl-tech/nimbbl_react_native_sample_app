@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, ScrollView, Switch, TouchableOpacity, Platform } from 'react-native';
+import { View, Text, ScrollView, Switch, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
-import { OrderData, SettingsData } from '../types';
+import { SettingsData } from '../types';
 import { globalStyles } from '../styles/globalStyles';
 import { ProductCard } from '../components/ProductCard';
 import { ProductDetails } from '../components/ProductDetails';
@@ -20,7 +20,7 @@ import { useOrderData } from '../hooks/useOrderData';
 import { useSettings } from '../contexts/SettingsContext';
 import { paymentService } from '../services/PaymentService';
 
-type MainScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Main'>;
+type MainScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Main'>;
 
 interface MainScreenProps {
   navigation: MainScreenNavigationProp;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
 import { SettingsData } from '../types';
 import { globalStyles } from '../styles/globalStyles';
@@ -13,7 +13,7 @@ import { Fonts } from '../constants/fonts';
 import { useSettings } from '../contexts/SettingsContext';
 import { API_URLS } from '../constants/apiUrls';
 
-type SettingsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Settings'>;
+type SettingsScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Settings'>;
 
 interface SettingsScreenProps {
   navigation: SettingsScreenNavigationProp;
