@@ -19,17 +19,6 @@ const nimbblSDK = NimbblSDK.getSharedInstance();
 
 // Initialize with default configuration (production environment)
 await nimbblSDK.initialize();
-
-// OR initialize with custom configuration
-await nimbblSDK.initialize({
-  environment: 'production', // or 'development', 'staging'
-  options: {
-    api_base_url: 'https://api.nimbbl.tech',
-    timeout: 30000,
-    enable_logging: false, // Set to true for development/debugging
-    enable_analytics: true
-  }
-});
 ```
 
 ### 3. Set Up Unified Event Listener
@@ -138,7 +127,7 @@ Your integration is complete. The SDK handles all the complex payment flow, and 
 - ✅ **Unified Event Handling**: Single listener for all payment responses
 - ✅ **Cross-Platform**: Works identically on iOS and Android
 - ✅ **Production Ready**: Enhanced stability and performance
-- ✅ **Latest Native SDKs**: iOS 2.0.4, Android 4.0.3
+- ✅ **Latest Native SDKs**: iOS 2.0.7, Android 4.0.4
 - ✅ **Fixed Android Issues**: Resolved white screen issue on Android
 - ✅ **Clean Codebase**: Production-ready with no debug logs or test code
 
