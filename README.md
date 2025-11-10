@@ -2,7 +2,7 @@
 
 **🎉 First Release - Production Ready!**
 
-This is the official sample application for the **Nimbbl React Native SDK v1.3.0** - demonstrating how to integrate the Nimbbl payment gateway into your React Native application.
+This is the official sample application for the **Nimbbl React Native SDK v1.3.2** - demonstrating how to integrate the Nimbbl payment gateway into your React Native application.
 
 ## 🚀 Quick Integration Guide
 
@@ -89,7 +89,7 @@ The SDK requires these dependencies (already included in this sample app):
 - ✅ **Production Ready** - Built with production best practices and comprehensive testing
 - ✅ **Cross-Platform** - Identical behavior on iOS and Android
 - ✅ **Modern Architecture** - React Navigation, TypeScript, and clean code structure
-- ✅ **Latest Native SDKs** - Built on iOS 2.0.4 and Android 4.0.3
+- ✅ **Latest Native SDKs** - Built on iOS 2.0.16 and Android 4.0.9
 - ✅ **Unified API** - Single API for both platforms with consistent response handling
 
 ## 📱 What This Sample App Demonstrates
@@ -161,9 +161,10 @@ if (checkoutResult.status === 'success') {
 4. **Result Display** - See `src/screens/PaymentResultScreen.tsx`
 5. **Settings Configuration** - See `src/screens/SettingsScreen.tsx`
 
-## 📋 Recent Updates (v1.3.0)
+## 📋 Recent Updates (v1.3.2)
 
 ### 🚀 Major Improvements
+- **Updated Native SDKs**: Upgraded to iOS SDK v2.0.16 and Android SDK v4.0.9 for improved stability and features
 - **Fixed Android White Screen Issue**: Resolved critical white screen issue on Android payment result screen
 - **Cross-Platform Consistency**: Android and iOS now have identical response formats and behavior
 - **Clean Codebase**: Removed all debug logs, test code, and unused variables for production readiness
@@ -171,6 +172,7 @@ if (checkoutResult.status === 'success') {
 - **Simplified Architecture**: Streamlined Android native module communication
 
 ### 🔧 Technical Changes
+- **Native SDK Updates**: Latest iOS (2.0.16) and Android (4.0.9) SDK integrations
 - **Android SDK Integration**: Fixed Android SDK response handling to match iOS behavior
 - **Response Format**: Standardized Android response format to match iOS
 - **Code Quality**: Removed all debug logs and unused code across both SDK and sample app
